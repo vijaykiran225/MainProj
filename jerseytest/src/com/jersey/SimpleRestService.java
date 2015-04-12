@@ -38,11 +38,11 @@ public class SimpleRestService {
 			 @PathParam("subCrop") String subCropString) {
 
 		String request=subCropString+","+cropstring;
-		if (logger.isDebugEnabled()) {
+		//if (logger.isDebugEnabled()) {
 			logger.debug("Start getSomething");
 			logger.debug("data: '" + request + "'");
 			logger.debug("version: '" + version + "'");
-		}
+		//}
 
 		ResponseDTO response = new ResponseDTO();
 
@@ -57,10 +57,10 @@ public class SimpleRestService {
         	response .setError( e.getMessage().toString());
         }
         
-        if(logger.isDebugEnabled()){
-            logger.debug("result: '"+response+"'");
-            logger.debug("End getSomething");
-        }
+//        if(logger.isDebugEnabled()){
+            logger.info("result: '"+response+"'");
+            logger.info("End getSomething");
+//        }
         return Response.ok().entity(response).build();	
 	}
 
@@ -72,21 +72,21 @@ public class SimpleRestService {
 			@PathParam("area") String area,
 			@PathParam("year") String year) {
 
-		if (logger.isDebugEnabled()) {
+		//if (logger.isDebugEnabled()) {
 			logger.debug("Start postSomething");
 			logger.debug("data: '" + place + "'");
 			logger.debug("version: '" + area + "'");
-		}
+		//}
 
 		CropSerachPOJO response = new CropSerachPOJO();
 
 		JPLDataAccessorObject accessorObject=new JPLDataAccessorObject();
         
 		response.setPlace(accessorObject.assignMod(place, area, year));
-        if(logger.isDebugEnabled()){
+     //   if(logger.isDebugEnabled()){
             logger.debug("result: '"+response+"'");
             logger.debug("End postSomething");
-        }
+     //   }
         
         return Response.ok().entity(response).build();	
 	}
