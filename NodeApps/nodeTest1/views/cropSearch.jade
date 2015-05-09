@@ -2,4 +2,7 @@ extends layout
 
 block content
     h1= title
-    p Hello, World! go to #{response['places'][0]['place']}
+    p go to #{response['places'][0]['place']}
+    p #{response['places'][0]['year']}
+    p #{response['places'][0]['area']}
+    p #{response['places'][0]['Crop']}

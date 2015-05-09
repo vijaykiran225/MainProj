@@ -1,73 +1,33 @@
 var express = require('express');
 var router = express.Router();
-
+var handlers=require('../controllers/ApiController.js');
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', handlers.home);
 
 /* GET Hello World page. */
-router.get('/helloworld', function(req, res) {
-    res.render('helloworld', { title: 'Hello, World! vijay' })
-});
+router.get('/helloworld', handlers.helloWorld);
 
 /*Get to place search page*/
-router.get('/place', function(req, res) {
-	var Client = require('node-rest-client').Client;
- 
-client = new Client();
- var args = {
-  data: { test: "hello" },
-  headers:{"Accept": "application/json"} 
-};
-var DisplayContent;
-// direct way 
-client.get("http://localhost:8080/jerseytest/rs/agro/placeSearch/rice/tkm12",args, function(data, response){
-            // parsed response body as js object 
-            console.log(data);
-			DisplayContent=data;
-            // raw response 
-           console.log("response ::::"+response);
-           console.log(DisplayContent['give']);
-    		res.render('placeSearch', {
-    			title:"placeSearch",
-		     response: DisplayContent
-		 		})
-           //console.log("content of json is "+JSON.stringify(DisplayContent));
-        });
-
-
-
-
-});
+router.get('/place/:crop/:subcrop', handlers.placeSearch);
 
 /*Get to crop search page*/
-router.get('/crop', function(req, res) {
-	var Client = require('node-rest-client').Client;
- 
-client = new Client();
- var args = {
-  data: { test: "hello" },
-  headers:{"Accept": "application/json"} 
-};
-var DisplayContent;
-// direct way 
-client.get("http://localhost:8080/jerseytest/rs/agro/cropSearch/kanyakumari/rainfed/normal",args, function(data, response){
-            // parsed response body as js object 
-            console.log(data);
-			DisplayContent=data;
-            // raw response 
-           console.log("response ::::"+response);
-           console.log(DisplayContent['places']);
-    res.render('cropSearch', {
-    	title :"cropSearch", 
-    	response: DisplayContent 
+router.get('/crop/:place/:area/:rain', handlers.cropSearch);
 
-    })
-           //console.log("content of json is "+JSON.stringify(DisplayContent));
-        });
-
-
+router.get('/prof', function(req, res, next) {
+  res.render('prof',{});
 });
+
+router.get('/pageplaces', function(req, res, next) {
+  res.render('pageplaces',{});
+});
+router.get('/pagehome', function(req, res, next) {
+  res.render('pagehome',{});
+});
+
+
+
+router.get('/fetchVariety/:crop', handlers.fetchVariety);
+
+router.get('/weather', handlers.weather);
 
 module.exports = router;

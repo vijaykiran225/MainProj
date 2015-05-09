@@ -1,0 +1,8 @@
+extends layout
+
+block content
+    h1= title
+    p go to #{response['humidity']}
+    p #{response['temp_C']}
+    p #{response['windspeedKmph']}
+    p #{response['weatherDesc'][0]['value']}

@@ -1,0 +1,4 @@
+humidity ::::74
+temp ::::11
+wind speed ::::0
+weather ::::Partly Cloudy

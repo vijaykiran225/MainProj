@@ -2,6 +2,7 @@
  * 
  */
 package com.hibernate;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class HibernateConnector {
 		String log4jConfPath = "src/log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
 		HibernateConnector connector=new HibernateConnector();
-		connector.getAggregateData("adt3,greengram");
+		connector.fetchVarieties("greengram");
 	}
 	private  void init() {
 		String log4jConfPath = "C:/Users/Vijay Kiran/workspace/jerseytest/src/log4j.properties";
@@ -132,5 +133,37 @@ public class HibernateConnector {
 			logger.info("success");
 		}
 		return dataList;
+	}
+	
+	public List<String> fetchVarieties(String crop) {
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		List<String> dataList = new LinkedList<String>();
+		List<String> responseList = new LinkedList<String>();
+		try {
+			transaction = session.beginTransaction();
+			String string = "select varietyname from ConfidenceFactorPOJO where varietyname like '%"+crop+"'";
+			Query createQuery = session.createQuery(string);
+			dataList = createQuery.list();
+			for (Iterator iterator = dataList.iterator(); iterator.hasNext();) {
+				String confidenceFactorPOJO = (String) iterator
+						.next();
+				System.out.println(confidenceFactorPOJO.toString());
+				logger.info(confidenceFactorPOJO.toString());
+				String[] temp=confidenceFactorPOJO.split(",");
+				System.out.println(temp[0]);
+				responseList.add(temp[0]);
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null)
+				transaction.rollback();
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			session.close();
+			logger.info("success");
+		}
+		return responseList ;
 	}
 }
