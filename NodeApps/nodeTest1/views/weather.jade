@@ -2,7 +2,8 @@ extends layout
 
 block content
     h1= title
-    p go to #{response['humidity']}
-    p #{response['temp_C']}
-    p #{response['windspeedKmph']}
-    p #{response['weatherDesc'][0]['value']}
+    p humidity is #{response['humidity']}
+    p temp is #{response['temperature']}
+    p wind is #{response['windy']}
+    p weather is #{response['weather']}
+    p fishing possiblity is #{response['fishing']}

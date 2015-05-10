@@ -8,10 +8,10 @@ router.get('/', handlers.home);
 router.get('/helloworld', handlers.helloWorld);
 
 /*Get to place search page*/
-router.get('/place/:crop/:subcrop', handlers.placeSearch);
+router.get('/place', handlers.cropSearch);
 
 /*Get to crop search page*/
-router.get('/crop/:place/:area/:rain', handlers.cropSearch);
+router.get('/crop', handlers.placeSearch);
 
 router.get('/prof', function(req, res, next) {
   res.render('prof',{});
@@ -26,7 +26,7 @@ router.get('/pagehome', function(req, res, next) {
 
 
 
-router.get('/fetchVariety/:crop', handlers.fetchVariety);
+router.get('/fetchVariety', handlers.fetchVariety);
 
 router.get('/weather', handlers.weather);
 

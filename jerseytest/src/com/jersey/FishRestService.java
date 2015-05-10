@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 
 import com.DTO.FishDataDTO;
+import com.prolog.JPLDataAccessorObject;
 
 @Path("/aqua")
 public class FishRestService {
@@ -22,23 +23,25 @@ public class FishRestService {
 	private static final Logger logger = Logger.getLogger(FishRestService.class);
 
 	@GET
-	@Path("/helloworld/{weather}/{humidity}/{temperature}/{wind}")
+	@Path("/mod3/{weather}/{humidity}/{temperature}/{wind}")
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 		public FishDataDTO getSomething(@PathParam("weather") String weather ,
 				@PathParam("humidity") String humidity,
 				@PathParam("temperature") String temperature,
 				@PathParam("wind") String wind) {
-
+		FishDataDTO response = new FishDataDTO();
 		if (logger.isDebugEnabled()) {
 			logger.debug("Start getSomething");
 			logger.debug("data: '" + weather + "'");
 //			logger.debug("version: '" + version + "'");
 		}
+		try{
+		
+		JPLDataAccessorObject accessorObject=new JPLDataAccessorObject();
+		response=accessorObject.assignFishMod(null, humidity, weather, wind, temperature);
 
-		FishDataDTO response = null;
-
-        try{
+        
         }
         catch(Exception e){
 //        	response = e.getMessage().toString();

@@ -55,7 +55,8 @@ public class SimpleRestService {
 			ConfidenceCalculator calculator = new ConfidenceCalculator();
 			response = calculator.calculate(target, response);
 		} catch (Exception e) {
-			response.setError(e.getMessage().toString());
+			//response.setError(e.getMessage().toString());
+			System.err.println(e.getMessage());
 		}
 
 		// if(logger.isDebugEnabled()){

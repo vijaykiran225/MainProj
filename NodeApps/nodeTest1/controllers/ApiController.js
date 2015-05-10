@@ -19,7 +19,7 @@ helloWorld = function (req, res) {
 
 placeSearch = function (req, res) {
 	// var query = require('url').parse(req.url,true).query;
-	var query = req.params;
+	var query = req.query;
 	var Client = require('node-rest-client').Client;
 
 	client = new Client();
@@ -52,7 +52,7 @@ placeSearch = function (req, res) {
 cropSearch = function (req, res) {
 	var Client = require('node-rest-client').Client;
 	// var query = require('url').parse(req.url,true).query;
-	var query = req.params;
+	var query = req.query;
 	client = new Client();
 	var args = {
 		data : {
@@ -65,7 +65,7 @@ cropSearch = function (req, res) {
 	var DisplayContent;
 	// direct way
 	console.log(url.cropSearch);
-	client.get(url.cropSearch + "/" + query.place + "/" + query.area + "/" + query.rain, args, function (data, response) {
+	client.get(url.cropSearch + "/" + query.district + "/" + query.area + "/" + query.year, args, function (data, response) {
 		// parsed response body as js object
 		console.log(data);
 		DisplayContent = data;
@@ -87,6 +87,7 @@ weather = function (req, res) {
 	var Client = require('node-rest-client').Client;
 
 	client = new Client();
+	client2=new Client();
 	var args = {
 		data : {
 			test : "hello"
@@ -101,56 +102,46 @@ weather = function (req, res) {
 	var requestUrl = url.requestUrl_1 + "q=13.082,80.270" + url.requestUrl_2;
 	client.get(requestUrl, function (data, response) {
 		// parsed response body as js object
-		// console.log("data is "+data);
+		console.log("data is "+data);
 
 		DisplayContent = JSON.parse(data);
 		// raw response
 		console.log("humidity ::::" + DisplayContent.data.current_condition[0].humidity);
 		humidity=DisplayContent.data.current_condition[0].humidity;
-		console.log("temp ::::" + DisplayContent.data.current_condition[0].temp_C);
-		 temp=DisplayContent.data.current_condition[0].temp_C;
-		console.log("wind speed ::::" + DisplayContent.data.current_condition[0].windspeedKmph);
-		wind=DisplayContent.data.current_condition[0].windspeedKmph;
+		console.log("temp ::::" + DisplayContent.data.weather[0].hourly[0].chanceofhightemp);
+		 temp=DisplayContent.data.weather[0].hourly[0].chanceofhightemp;
+		console.log("wind  ::::" + DisplayContent.data.weather[0].hourly[0].chanceofwindy);
+		wind=DisplayContent.data.weather[0].hourly[0].chanceofwindy;
 		console.log("weather ::::" + DisplayContent.data.current_condition[0].weatherDesc[0].value);
 		weather=DisplayContent.data.current_condition[0].weatherDesc[0].value;
 		//  client.get(requestUrl, function(data, response){
 		
 		//});
-
-	});
+var ResultValues;
 	var restReq=url.mod3+"/"+weather+"/"+humidity+"/"+temp+"/"+wind;
-	client.get(restReq, function (data, response) {
+	console.log(restReq);
+	client2.get(restReq, function (data2, response2) {
 		// parsed response body as js object
-		// console.log("data is "+data);
-
-		DisplayContent = JSON.parse(data);
-		// raw response
-		console.log("humidity ::::" + DisplayContent.data.current_condition[0].humidity);
-		humidity=DisplayContent.data.current_condition[0].humidity;
-		console.log("temp ::::" + DisplayContent.data.current_condition[0].temp_C);
-		 temp=DisplayContent.data.current_condition[0].temp_C;
-		console.log("wind speed ::::" + DisplayContent.data.current_condition[0].windspeedKmph);
-		wind=DisplayContent.data.current_condition[0].windspeedKmph;
-		console.log("weather ::::" + DisplayContent.data.current_condition[0].weatherDesc[0].value);
-		weather=DisplayContent.data.current_condition[0].weatherDesc[0].value;
-		//  client.get(requestUrl, function(data, response){
+		console.log("data is "+JSON.stringify(data2));
 		
-		//});
+		res.render('weather', {
+			title : "weather",
+			response : data2
+
+		});
 
 	});
 	
-	res.render('weather', {
-			title : "weather",
-			response : DisplayContent.data.current_condition[0]
-
-		});
+	
+	});
+	
 
 }
 
 fetchVariety = function (req, res) {
 	var Client = require('node-rest-client').Client;
 	// var query = require('url').parse(req.url,true).query;
-	var query = req.params;
+	var query = req.query;
 	client = new Client();
 	var args = {
 		data : {
@@ -160,23 +151,29 @@ fetchVariety = function (req, res) {
 			"Accept" : "application/json"
 		}
 	};
+	try{
 	var DisplayContent;
 	// direct way
-	console.log(url.fetchVariety);
-	client.get(url.fetchVariety + "/" + query.crop, args, function (data, response) {
+	var requestor=url.fetchVariety+ "/" + query.crop;
+	console.log(requestor);
+	client.get(requestor, args, function (data, response) {
 		// parsed response body as js object
 		console.log(data);
 		DisplayContent = data;
 		// raw response
 		console.log("response ::::" + response);
-		
+		DisplayContent.requestCrop=query.crop;
 		res.render('subcrops', {
 			title : "subcrops",
 			response : DisplayContent
 
-		})
+		});
 		//console.log("content of json is "+JSON.stringify(DisplayContent));
-	});
+	});}
+	catch(e)
+	{
+	console.log(e);
+	}
 
 }
 module.exports.fetchVariety=fetchVariety;

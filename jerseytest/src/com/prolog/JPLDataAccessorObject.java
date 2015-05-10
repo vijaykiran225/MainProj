@@ -21,8 +21,8 @@ public class JPLDataAccessorObject {
 		//d.assignMod(AvailableConstants.kanyakumari.getValue(),
 			//	AvailableConstants.GENERIC_AREA.getValue(),
 //				AvailableConstants.YEAR_NORMAL.getValue());
-		
-		d.assignFishMod("", "normal", "rain", "no", "mild");
+//		Sunny/44/63/89
+	d.assignFishMod(null, "63", "sunny", "9", "44");
 	}
 
 	/**
@@ -128,13 +128,79 @@ public class JPLDataAccessorObject {
 
 	public FishDataDTO assignFishMod(String args, String humidity
 			,String weather,String wind,String temperature) {
-		// TODO Auto-generated method stub
+		// TODO check if place can fish..
+		// TODO fuzzify the input value
+		
 		String queryString = "consult('C:/Users/Vijay Kiran/workspace/jerseytest/src/com/prolog/data/conditionFish.pl')";
 		Query q1 = new Query(queryString);
+		int temp,win,hum;
+		temp=java.lang.Integer.parseInt(temperature);
+		
+		win=java.lang.Integer.parseInt(wind);
+		hum=java.lang.Integer.parseInt(humidity);
+		
+		temperature=fuzzifyTemperature(temp);
+		weather=fuzzifyWeather(weather);
+		wind=fuzzifyWind(win);
+		humidity=fuzzifyHumidity(hum);
 		// Query q2=new Query("assert(variety("+args+"))");
-		Query q3 = new Query("data(fishing(X),weather('"+weather+"'),temperature('"+temperature+"'),humidity('"+humidity+"'),windy('"+wind+"'))");
-		return getPrologDataAqua(q1, q3);
+		String queryToExecute = "data(fishing(X),weather('"+weather+"'),temperature('"+temperature+"'),humidity('"+humidity+"'),windy('"+wind+"'))";
+		System.out.println(queryToExecute);
+		Query q3 = new Query(queryToExecute);
+		FishDataDTO prologDataAqua = getPrologDataAqua(q1, q3);
+		System.out.println("<"+prologDataAqua.getFishing()+">");
+		return prologDataAqua;
+	}
 
+	private String fuzzifyHumidity(int hum) {
+		// TODO Auto-generated method stub
+		if(hum>=0 && hum<=33)
+		{return "low";}
+		else if (hum>=34 && hum<=66) {
+			return "normal";
+		}
+		else if (hum>=67 && hum<=99) {
+			return "high";
+		}
+		else {
+			return "";
+			
+		}
+	}
+
+	private String fuzzifyWind(int win) {
+		// TODO Auto-generated method stub
+		if(win>=0 && win<=50)
+		{return "no";}
+		else if (win>=51 && win<=99) {
+			return "yes";
+		}
+		return null;
+		//yes / no
+	}
+
+	private String fuzzifyWeather(String wea) {
+		// TODO Auto-generated method stub
+		wea=wea.toLowerCase();
+		
+		return wea;
+		//sunny,cloudy,rain
+	}
+
+	private String fuzzifyTemperature(int temp) {
+		// TODO Auto-generated method stub
+		if(temp>=0 && temp<=33)
+		{return "cool";}
+		else if (temp>=34 && temp<=66) {
+			return "mild";
+		}
+		else if (temp>=67 && temp<=99) {
+			return "hot";
+		}
+		else {
+			return "";
+			
+		}
 	}
 
 	/**
@@ -147,8 +213,14 @@ public class JPLDataAccessorObject {
 		// System.out.println("status : "+q2.hasSolution());
 		// ,
 		FishDataDTO dataPOJO = new FishDataDTO();
-		System.out.println("status : " + q3.oneSolution().get("X"));
-		dataPOJO.setFishing((q3.oneSolution().get("X").toString()));
+		
+		Object fishing = q3.oneSolution();
+		if(fishing!=null){
+			System.out.println("status mhgh : " + q3.oneSolution().get("X").toString());
+		dataPOJO.setFishing(fishing.toString());}
+		else {
+			dataPOJO.setFishing("Data not available");	
+		}
 		/*
 		System.out.println("status : " + q3.oneSolution().get("windy"));
 		dataPOJO.setWindy(q3.oneSolution().get("windy").toString());

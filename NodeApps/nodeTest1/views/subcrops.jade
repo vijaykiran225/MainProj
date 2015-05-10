@@ -86,11 +86,13 @@ html(lang='en')
         |     &#x9;
         |     &#x9;
         div
-          form.form(name='fetch', action='subcrops.php', method='post', onsubmit='return validate()')
+          form.form(name='fetch', action='crop', method='get', onsubmit='return validate()')
             .col-md-6.col-md-offset-3
               .row
                 .col-md-4.col-md-offset-4
-                   select
+                   -var f=response['requestCrop']
+                   input(type='hidden',name='crop' value=f)
+                   select(name='subcrop')
                      for val in response
                        option(name=val , value=val)= val
               |     &#x9;
