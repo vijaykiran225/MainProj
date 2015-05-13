@@ -1,0 +1,127 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    |     
+    title Agro Expert System
+    |     
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    |     
+    link(rel='stylesheet', href='/css/bootstrap.css', media='screen')
+    // HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    //if lt IE 9
+      script(src='../bower_components/html5shiv/dist/html5shiv.js')
+      |       
+      script(src='../bower_components/respond/dest/respond.min.js')
+    style(type='text/css').
+      html,
+      body {
+      height: 100%;
+      }
+      #wrap {
+      min-height: 100%;
+      height: auto;
+      margin: 0 auto -60px;
+      padding: 0 0 60px;
+      }
+      #footer {
+      height: 60px;
+      background-color: #f5f5f5;
+      }
+      .heading {
+      padding-top: 150px;
+      padding-bottom:30px;
+      text-align: center;
+      }
+    script(type='text/javascript').
+      function validate()
+      {
+      var crop= document.getElementById('crop');
+      var cr=crop.options[crop.selectedIndex].value;
+      if (cr=="select")
+      {
+      document.getElementById('warning').className="alert alert-danger";
+      document.getElementById('content').innerHTML="Please Select a Crop!!";
+      return false;
+      }
+      return true;
+      }
+  |   
+  body
+    #wrap
+      .navbar.navbar-default.navbar-fixed-top
+        .container
+          .navbar-header
+            a.navbar-brand(href='index.html') Agro Expert System
+            |           
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-main')
+              span.icon-bar
+              |             
+              span.icon-bar
+              |             
+              span.icon-bar
+          |         
+          #navbar-main.navbar-collapse.collapse
+            ul.nav.navbar-nav
+              li
+                a(href='pagehome') Find Crops
+              |             
+              li.active
+                a(href='pageplaces') Find Places
+              |              
+              li
+                a(href='pageweather')
+                  | Fishing Suggestions 
+                  span.badge.alert-warning New
+              |             
+              
+      |     
+      .container
+        .heading
+          h3
+            span(style='color:#D92432;') 
+          |         
+          p.lead(style='font-size:15px;') Agro Expert System suggests maximum yield areas
+        |     &#x9;
+        |     &#x9;
+        div
+          form.form(name='fetch', action='crop', method='get', onsubmit='return validate()')
+            .col-md-6.col-md-offset-3
+              .row
+                .col-md-4.col-md-offset-4
+                         p Your #{response['season']}
+                         p Your #{response['days']}
+                         p Your Average Yield in kg/ha : #{response['avgyield']}
+                         p Your crop's special features : #{response['feat']}
+                         p Your list of places : #{response['places']}
+                         p Suggested time to grow : #{response['when']}
+                         p Suggested time needed for the crop to grow : #{response['give']}
+                         p Suggested yield : #{response['gives']}
+                         p Suggested Place : #{response['where']}
+                         p Possibility of Season :#{response['certaintyValueSeason']}
+                         p Possibility of Days needed to grow :#{response['certaintyValueDays']}
+                         p Possibility of Average yield: #{response['certaintyValueAvgyield']}
+                         p Possibility of Features : #{response['certaintyValueFeat']}
+                         p Possibility of Place to grow : #{response['certaintyValuePlaces']}
+              |     &#x9;
+              .row(style='padding-top:8%;')
+                .col-md-offset-5
+              
+              .col-md-6.col-md-offset-3(style='padding-top:5%;', align='center')
+              
+              
+              .col-md-6.col-md-offset-3(style='padding-top:5%;', align='center')
+                #warning.alert.alert-danger.hidden
+                  span#content
+      // Container Ends
+    |     
+    #footer
+      .container
+        br
+        |         
+        p(style='color:#AD1D28', align='center')
+          | * Agro Expert System works only with the districts of the state TamilNadu, India.
+    |     
+    script(src='https://code.jquery.com/jquery-1.10.2.min.js')
+    |     
+    script(src='js/bootstrap.min.js')

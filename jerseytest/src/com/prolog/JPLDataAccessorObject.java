@@ -148,6 +148,10 @@ public class JPLDataAccessorObject {
 		System.out.println(queryToExecute);
 		Query q3 = new Query(queryToExecute);
 		FishDataDTO prologDataAqua = getPrologDataAqua(q1, q3);
+		prologDataAqua.setHumidity(humidity);
+		prologDataAqua.setTemperature(temperature);
+		prologDataAqua.setWeather(weather);
+		prologDataAqua.setWindy(wind);
 		System.out.println("<"+prologDataAqua.getFishing()+">");
 		return prologDataAqua;
 	}

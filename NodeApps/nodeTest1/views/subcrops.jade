@@ -64,23 +64,22 @@ html(lang='en')
           #navbar-main.navbar-collapse.collapse
             ul.nav.navbar-nav
               li
-                a(href='index.php') Find Crops
+                a(href='pagehome') Find Crops
               |             
               li.active
-                a(href='#') Find Places
+                a(href='pageplaces') Find Places
               |              
               li
-                a(href='suggestions.php')
-                  | Suggestions 
+                a(href='pageweather')
+                  | Fishing Suggestions 
                   span.badge.alert-warning New
               |             
-              li
-                a(href='about.html') About
+              
       |     
       .container
         .heading
           h3
-            span(style='color:#D92432;') Select your desired Crop
+            span(style='color:#D92432;') Select your desired Crop's Variety 
           |         
           p.lead(style='font-size:15px;') Agro Expert System suggests maximum yield areas
         |     &#x9;
@@ -100,8 +99,7 @@ html(lang='en')
                 .col-md-offset-5
                   button.btn.btn-primary(type='submit') Fetch Varities
               .col-md-6.col-md-offset-3(style='padding-top:5%;', align='center')
-                #warning.alert.alert-danger
-                  span#content Please Provide the Data !!
+               
               .col-md-6.col-md-offset-3(style='padding-top:5%;', align='center')
                 #warning.alert.alert-danger.hidden
                   span#content
