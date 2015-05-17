@@ -186,7 +186,13 @@ public class JPLDataAccessorObject {
 	private String fuzzifyWeather(String wea) {
 		// TODO Auto-generated method stub
 		wea=wea.toLowerCase();
+		switch(wea)
+		{
+		case "partly cloudy": wea = "cloudy";break;
+		case "overcast": wea="cloudy";break;
 		
+		
+		}
 		return wea;
 		//sunny,cloudy,rain
 	}
