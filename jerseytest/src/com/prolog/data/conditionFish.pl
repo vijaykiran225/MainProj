@@ -10,6 +10,7 @@ data(fishing('good'),weather('sunny'),temperature('cool'),humidity('normal'),win
 data(fishing('good'),weather('rain'),temperature('mild'),humidity('normal'),windy('no')).
 data(fishing('good'),weather('sunny'),temperature('mild'),humidity('normal'),windy('yes')).
 data(fishing('good'),weather('cloudy'),temperature('mild'),humidity('high'),windy('yes')).
+data(fishing('good'),weather('cloudy'),temperature('cool'),humidity('high'),windy('no')).
 data(fishing('good'),weather('cloudy'),temperature('hot'),humidity('normal'),windy('no')).
 data(fishing('bad'),weather('rain'),temperature('mild'),humidity('high'),windy('yes')).
 data(fishing('bad'),weather('sunny'),temperature('hot'),humidity('high'),windy('no')).

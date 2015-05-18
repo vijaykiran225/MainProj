@@ -147,7 +147,10 @@ weather = function (req, res) {
 		client2.get(restReq, function (data2, response2) {
 			// parsed response body as js object
 			// console.log("data is " + JSON.stringify(data2));
-
+			if(data2.fishing.indexOf("="))
+			{data2.fishing=data2.fishing.split("=").pop();
+			data2.fishing.replace("}","");
+			}
 			res.render('fetchweather', {
 				title : "weather",
 				response : data2
