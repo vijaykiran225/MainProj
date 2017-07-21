@@ -8,6 +8,7 @@
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
+		
 		<property name="varietyname" column="varietyname" type="string" />
 		<property name="season" column="season" type="double" />
 		<property name="days" column="days" type="double" />
