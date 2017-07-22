@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.hibernate.ConfidenceFactorPOJO" table="cf">
+		<meta attribute="class-description">
+			This class contains the confidence factor detail.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		
+		<property name="varietyname" column="varietyname" type="string" />
+		<property name="season" column="season" type="double" />
+		<property name="days" column="days" type="double" />
+		<property name="avgyield" column="avgyield" type="double" />
+		<property name="feat" column="feat" type="double" />
+		<property name="places" column="places" type="double" />
+		
+		
+	</class>
+</hibernate-mapping>
