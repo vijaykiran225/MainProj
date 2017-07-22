@@ -7,9 +7,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 
@@ -32,18 +31,18 @@ public class HibernateConnector {
 		factory=new Configuration().configure().buildSessionFactory();
 		// TODO Auto-generated constructor stub
 	}
-	private static final Logger logger = Logger.getLogger(HibernateConnector.class);
+	private static final Logger logger = LogManager.getLogger(HibernateConnector.class);
 
 	private static SessionFactory factory;
 	public static void main(String[] args) {
 		String log4jConfPath = "src/log4j.properties";
-		PropertyConfigurator.configure(log4jConfPath);
+//		PropertyConfigurator.configure(log4jConfPath);
 		HibernateConnector connector=new HibernateConnector();
 		connector.fetchVarieties("greengram");
 	}
 	private  void init() {
 		String log4jConfPath = "C:/Users/Vijay Kiran/workspace/jerseytest/src/log4j.properties";
-		PropertyConfigurator.configure(log4jConfPath);
+//		PropertyConfigurator.configure(log4jConfPath);
 		HibernateConnector connector=new HibernateConnector();
 		//return connector.getData(content);
 	}

@@ -1,18 +1,19 @@
 package com.jersey;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.core.MediaType;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.DTO.FishDataDTO;
 import com.prolog.JPLDataAccessorObject;
@@ -20,7 +21,7 @@ import com.prolog.JPLDataAccessorObject;
 @Path("/aqua")
 public class FishRestService {
 
-	private static final Logger logger = Logger.getLogger(FishRestService.class);
+	private static final Logger logger = LogManager.getLogger(FishRestService.class);
 
 	@GET
 	@Path("/mod3/{weather}/{humidity}/{temperature}/{wind}")

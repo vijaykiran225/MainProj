@@ -3,31 +3,28 @@ package com.jersey;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.DTO.ResponseDTO;
 import com.hibernate.HibernateConnector;
 import com.hibernate.confidenceFactor.ConfidenceCalculator;
 import com.prolog.CropSerachPOJO;
 import com.prolog.JPLDataAccessorObject;
-import jpl.*;
 
 @Path("/agro")
 public class SimpleRestService {
 
-	private static final Logger logger = Logger
+	private static final Logger logger = LogManager
 			.getLogger(SimpleRestService.class);
 
 	@GET
